@@ -182,6 +182,75 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
 @keyframes rippleOut{to{transform:scale(6);opacity:0}}
 @keyframes explodeOut{from{transform:translate(0,0) scale(1);opacity:1}to{transform:translate(var(--x),var(--y)) scale(0.3);opacity:0}}
 @media(max-width:400px){.letter-wrap,.promise-card{padding:22px 16px}.photo-grid{gap:10px}}
+#voiceCard {
+  display:flex; align-items:center; gap:16px;
+  background:var(--surface2); border:1px solid var(--ink-dim);
+  border-radius:20px; padding:18px 22px;
+  max-width:360px; width:100%; margin-bottom:14px;
+}
+#voiceAvatar {
+  width:48px; height:48px; border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Caveat',cursive; font-size:22px; font-weight:700;
+  color:#0a0a10; flex-shrink:0;
+}
+#voiceInfo { flex:1; text-align:left; }
+#voiceName { font-family:'Caveat',cursive; font-size:18px; color:var(--ink); }
+#voiceSub { font-size:13px; color:var(--ink-muted); font-style:italic; }
+#voicePlayBtn {
+  width:40px; height:40px; border-radius:50%;
+  background:var(--accent); border:none; cursor:pointer;
+  font-size:15px; color:#0a0a10; font-weight:bold;
+  transition:transform 0.2s; flex-shrink:0;
+}
+#voicePlayBtn:hover { transform:scale(1.1); }
+#voiceProgressWrap {
+  width:min(360px,88vw); height:4px; background:var(--ink-dim);
+  border-radius:4px; cursor:pointer; margin-bottom:8px;
+}
+#voiceProgress { height:100%; background:var(--accent); border-radius:4px; width:0%; transition:width 0.3s linear; }
+#voiceTime { font-family:'Caveat',cursive; font-size:16px; color:var(--ink-muted); margin-bottom:20px; }
+</style>
+<style id="css-empty">
+#emptyRoom {
+  max-width:500px; width:100%; text-align:center;
+}
+#emptyMoon {
+  font-size:70px; margin-bottom:28px;
+  animation: moonPulse 3s ease-in-out infinite;
+  filter: grayscale(0.8);
+}
+@keyframes moonPulse {
+  0%,100% { transform:translateY(0); opacity:0.6; }
+  50% { transform:translateY(-8px); opacity:1; }
+}
+.empty-line {
+  font-size:clamp(16px,4.5vw,24px); font-style:italic;
+  color:var(--ink-muted); line-height:1.8;
+  opacity:0; transform:translateY(10px);
+  transition: all 0.7s ease;
+}
+.empty-line.visible { opacity:1; transform:translateY(0); }
+</style>
+<style id="css-secret">
+#secretEnvelope {
+  font-size:80px; margin-bottom:20px;
+  animation: envelopeFloat 3s ease-in-out infinite;
+}
+@keyframes envelopeFloat {
+  0%,100% { transform:translateY(0) rotate(-3deg); }
+  50% { transform:translateY(-10px) rotate(3deg); }
+}
+#secretLetter {
+  background:var(--surface); border:1px solid var(--ink-dim);
+  border-radius:20px; padding:28px 24px; max-width:480px; width:100%;
+  backdrop-filter:blur(10px); text-align:left;
+}
+#secretText {
+  font-size:clamp(15px,3.8vw,20px); line-height:1.9;
+  font-style:italic; color:var(--ink);
+}
 </style>
 </head>
 <body>
@@ -356,6 +425,66 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
   <button class="btn" style="margin-top:28px" onclick="maafKaro()">Maaf kar do? 💙</button>
   <div id="maafMsg" style="display:none;margin-top:20px;font-family:'Caveat',cursive;font-size:clamp(20px,5vw,30px);color:var(--accent);line-height:1.6"></div>
 </div>
+<div class="scene" id="sc8">
+  <div class="section-title">Meri Awaaz 🎤</div>
+  <p style="font-style:italic;color:var(--ink-muted);font-size:16px;margin-bottom:28px">
+    jo main keh nahi paaya… sunno
+  </p>
+
+  <div id="voiceCard">
+    <div id="voiceAvatar">H</div>
+    <div id="voiceInfo">
+      <div id="voiceName">Haider 💙</div>
+      <div id="voiceSub">Voice Message · tap to play</div>
+    </div>
+    <button id="voicePlayBtn" onclick="toggleVoice()">▶</button>
+  </div>
+
+  <div id="voiceProgressWrap" onclick="seekVoice(event)">
+    <div id="voiceProgress"></div>
+  </div>
+  <div id="voiceTime">0:00 / 0:00</div>
+
+  <audio id="voiceAudio" src="voice.mp3"></audio>
+
+  <button class="btn" onclick="goTo(9)">Aur bhi hai 💙</button>
+</div>
+<div class="scene" id="sc9">
+  <div id="emptyRoom">
+    <div id="emptyMoon">🌑</div>
+    <div id="emptyLines">
+      <div class="empty-line" id="el0">Jab tum naraaz hoti ho…</div>
+      <div class="empty-line" id="el1">yeh kamra bahut bada lagta hai.</div>
+      <div class="empty-line" id="el2">Phone uthata hoon — phir rakh deta hoon.</div>
+      <div class="empty-line" id="el3">Tumhe miss karta hoon.</div>
+      <div class="empty-line" id="el4">Har minute.</div>
+      <div class="empty-line" id="el5" style="color:var(--accent);font-size:clamp(18px,5vw,28px)">Please wapis aao 💙</div>
+    </div>
+  </div>
+  <button class="btn" style="margin-top:32px" onclick="goTo(10)">Aage chalo 💙</button>
+</div>
+<div class="scene" id="sc10">
+  <div class="lock-moon" style="font-size:60px">💌</div>
+  <div class="lock-title">Ek Raaz hai…</div>
+  <div class="lock-sub">sirf tumhare liye. Password daalo.</div>
+  <input class="lock-input" id="pass2" type="password" placeholder="🔒 secret password…" autocomplete="off">
+  <div class="lock-err" id="lockErr2">Nahi… thoda sochoo 💙</div>
+  <button class="btn" onclick="checkSecret()">Kholna hai 🗝️</button>
+</div>
+
+<div class="scene" id="sc10b">
+  <div id="secretEnvelope">💌</div>
+  <div id="secretLetter">
+    <div id="secretText"></div>
+  </div>
+  <button class="btn" onclick="goTo(11)">Aage 💙</button>
+</div>
+
+<!-- [CSS] paste inside <style> -->
+
+
+<!-- [JS] paste inside <script> -->
+
 
 <script>
 /* STARS */
@@ -417,6 +546,9 @@ function goTo(n){
   document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
   document.getElementById('sc'+n).classList.add('active');
   createRipple();
+  if (n === 9)  showEmptyLines();
+if (n === 11) buildStarField();
+if (n === 13) startChat();
 }
 function createRipple(){
   const r=document.createElement('div');r.className='ripple';const sz=80;
@@ -569,6 +701,102 @@ function showWhisper(){
   setTimeout(showWhisper,18000+Math.random()*12000);
 }
 setTimeout(showWhisper,20000);
+const voiceAudio = document.getElementById('voiceAudio');
+let voicePlaying = false;
+
+function toggleVoice() {
+  if (voicePlaying) {
+    voiceAudio.pause();
+    document.getElementById('voicePlayBtn').textContent = '▶';
+    document.getElementById('voiceSub').textContent = 'Voice Message · paused';
+  } else {
+    voiceAudio.play().catch(() => {});
+    document.getElementById('voicePlayBtn').textContent = '⏸';
+    document.getElementById('voiceSub').textContent = 'Playing… 🎙️';
+  }
+  voicePlaying = !voicePlaying;
+}
+
+function seekVoice(e) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  if (voiceAudio.duration) voiceAudio.currentTime = pct * voiceAudio.duration;
+}
+
+function fmtTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2,'0')}`;
+}
+
+voiceAudio.addEventListener('timeupdate', () => {
+  if (voiceAudio.duration) {
+    document.getElementById('voiceProgress').style.width = (voiceAudio.currentTime / voiceAudio.duration * 100) + '%';
+    document.getElementById('voiceTime').textContent = fmtTime(voiceAudio.currentTime) + ' / ' + fmtTime(voiceAudio.duration);
+  }
+});
+
+voiceAudio.addEventListener('ended', () => {
+  voicePlaying = false;
+  document.getElementById('voicePlayBtn').textContent = '▶';
+  document.getElementById('voiceSub').textContent = 'Voice Message · ended';
+});
+</script>
+<script id="js-empty">
+function showEmptyLines() {
+  ['el0','el1','el2','el3','el4','el5'].forEach((id,i) => {
+    setTimeout(() => document.getElementById(id).classList.add('visible'), 400 + i * 700);
+  });
+}
+// Call showEmptyLines() when entering sc9
+// Add to your goTo() function or call it with: onclick="goTo(9);showEmptyLines()"
+</script>
+<script id="js-secret">
+const secretContent = `Yeh woh baat hai jo main kabhi openly nahi bol paata…
+
+Main darr jaata hoon.
+Darr jaata hoon ke tum chhod ke chali jaogi.
+Isliye kabhi kabhi galat behave karta hoon —
+apni feelings chhupaata hoon.
+
+Par sachchi mein?
+Tum meri sabse badi taaqat ho.
+Aur meri sabse badi kamzori bhi.
+
+Main tumhare bina adhoora hoon, Jannnahhhh.
+Yeh mera raaz tha. 💙
+
+— Haider`;
+
+function checkSecret() {
+  const v = document.getElementById('pass2').value.trim().toLowerCase();
+  const err = document.getElementById('lockErr2');
+  if (v === 'jaanu' || v === 'jaan' || v === 'gurriya' || v.startsWith('guriya')) {
+    goTo('10b');
+    typeSecret();
+  } else {
+    err.style.opacity = '1';
+    document.getElementById('pass2').style.animation = 'shake 0.4s';
+    setTimeout(() => document.getElementById('pass2').style.animation = '', 400);
+  }
+}
+document.getElementById('pass2')?.addEventListener('keydown', e => { if(e.key==='Enter') checkSecret(); });
+
+function typeSecret() {
+  const el = document.getElementById('secretText');
+  el.innerHTML = ''; let i = 0;
+  const cursor = document.createElement('span'); cursor.className = 'cursor-blink';
+  function type() {
+    if (i < secretContent.length) {
+      const ch = secretContent[i];
+      if (ch === '\n') el.appendChild(document.createElement('br'));
+      else el.appendChild(document.createTextNode(ch));
+      i++; el.appendChild(cursor);
+      setTimeout(type, ch === '\n' ? 80 : 32);
+    } else { cursor.remove(); }
+  }
+  type();
+}
 </script>
 </body>
 </html>
