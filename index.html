@@ -122,10 +122,7 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
   background:linear-gradient(transparent,rgba(0,0,0,0.75));
   color:white;font-family:'Caveat',cursive;font-size:15px;padding:20px 10px 8px;text-align:center;
 }
-.photo-placeholder{
-  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
-  font-size:32px;color:var(--ink-dim);
-}
+.photo-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--ink-dim)}
 
 /* LIGHTBOX */
 #lightbox{
@@ -176,81 +173,68 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
   backdrop-filter:blur(6px);white-space:nowrap;max-width:90vw;text-align:center;
 }
 
+/* VOICE NOTE */
+#voiceCard{display:flex;align-items:center;gap:16px;background:var(--surface2);border:1px solid var(--ink-dim);border-radius:20px;padding:18px 22px;max-width:360px;width:100%;margin-bottom:14px}
+#voiceAvatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Caveat',cursive;font-size:22px;font-weight:700;color:#0a0a10;flex-shrink:0}
+#voiceInfo{flex:1;text-align:left}
+#voiceName{font-family:'Caveat',cursive;font-size:18px;color:var(--ink)}
+#voiceSub{font-size:13px;color:var(--ink-muted);font-style:italic}
+#voicePlayBtn{width:40px;height:40px;border-radius:50%;background:var(--accent);border:none;cursor:pointer;font-size:15px;color:#0a0a10;font-weight:bold;transition:transform 0.2s;flex-shrink:0}
+#voicePlayBtn:hover{transform:scale(1.1)}
+#voiceProgressWrap{width:min(360px,88vw);height:4px;background:var(--ink-dim);border-radius:4px;cursor:pointer;margin-bottom:8px}
+#voiceProgress{height:100%;background:var(--accent);border-radius:4px;width:0%;transition:width 0.3s linear}
+#voiceTime{font-family:'Caveat',cursive;font-size:16px;color:var(--ink-muted);margin-bottom:20px}
+
+/* EMPTY ROOM */
+#emptyRoom{max-width:500px;width:100%;text-align:center}
+#emptyMoon{font-size:70px;margin-bottom:28px;animation:moonPulse 3s ease-in-out infinite;filter:grayscale(0.8)}
+@keyframes moonPulse{0%,100%{transform:translateY(0);opacity:0.6}50%{transform:translateY(-8px);opacity:1}}
+.empty-line{font-size:clamp(16px,4.5vw,24px);font-style:italic;color:var(--ink-muted);line-height:1.8;opacity:0;transform:translateY(10px);transition:all 0.7s ease}
+.empty-line.visible{opacity:1;transform:translateY(0)}
+
+/* SECRET */
+#secretEnvelope{font-size:80px;margin-bottom:20px;animation:envelopeFloat 3s ease-in-out infinite}
+@keyframes envelopeFloat{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+#secretLetter{background:var(--surface);border:1px solid var(--ink-dim);border-radius:20px;padding:28px 24px;max-width:480px;width:100%;backdrop-filter:blur(10px);text-align:left}
+#secretText{font-size:clamp(15px,3.8vw,20px);line-height:1.9;font-style:italic;color:var(--ink)}
+
+/* STAR WISH */
+#starField{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;max-width:340px;margin:0 auto 10px}
+.wish-star{font-size:36px;cursor:pointer;transition:transform 0.3s,filter 0.3s;animation:starPulse 2s ease-in-out infinite}
+.wish-star:hover{transform:scale(1.3);filter:drop-shadow(0 0 8px gold)}
+@keyframes starPulse{0%,100%{opacity:0.7}50%{opacity:1}}
+#starWishBox{background:var(--surface);border:1px solid var(--ink-dim);border-radius:20px;padding:28px 24px;max-width:420px;width:100%;backdrop-filter:blur(12px);animation:fadeUp 0.6s ease}
+#starWishText{font-size:clamp(18px,5vw,26px);font-style:italic;color:var(--ink);line-height:1.7}
+
+/* DOODLE */
+#doodle{width:min(340px,88vw);border-radius:20px;border:1px solid var(--ink-dim);filter:drop-shadow(0 8px 32px rgba(126,184,212,0.15));animation:doodleFloat 4s ease-in-out infinite}
+@keyframes doodleFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* CHAT */
+#chatBox{background:#0f0f1a;border:1px solid var(--ink-dim);border-radius:20px;overflow:hidden;width:min(380px,92vw);max-height:55vh;display:flex;flex-direction:column}
+#chatHeader{display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(126,184,212,0.08);border-bottom:1px solid var(--ink-dim);flex-shrink:0}
+#chatAvatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--accent2),var(--accent));display:flex;align-items:center;justify-content:center;font-family:'Caveat',cursive;font-size:20px;font-weight:700;color:#0a0a10}
+#chatName{font-family:'Caveat',cursive;font-size:18px;color:var(--ink)}
+#chatStatus{font-size:12px;color:#4caf50}
+#chatMessages{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch}
+.msg{max-width:75%;padding:10px 14px;border-radius:18px;font-size:clamp(13px,3.5vw,16px);line-height:1.5;opacity:0;transform:translateY(10px);transition:all 0.4s ease}
+.msg.visible{opacity:1;transform:translateY(0)}
+.msg.her{background:var(--surface2);color:var(--ink);border-radius:18px 18px 18px 4px;align-self:flex-start}
+.msg.me{background:var(--accent);color:#0a0a10;border-radius:18px 18px 4px 18px;align-self:flex-end}
+.msg-time{font-size:11px;opacity:0.5;margin-top:4px}
+#chatTyping{padding:8px 14px}
+.typing-bubble{background:var(--surface2);border-radius:18px 18px 18px 4px;padding:12px 16px;display:inline-flex;gap:5px;align-items:center}
+.typing-bubble span{width:7px;height:7px;border-radius:50%;background:var(--ink-muted);display:inline-block;animation:typingDot 1.2s ease-in-out infinite}
+.typing-bubble span:nth-child(2){animation-delay:0.2s}
+.typing-bubble span:nth-child(3){animation-delay:0.4s}
+@keyframes typingDot{0%,80%,100%{transform:scale(1);opacity:0.4}40%{transform:scale(1.3);opacity:1}}
+
 /* MISC */
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 .ripple{position:fixed;border-radius:50%;border:1px solid var(--accent);transform:scale(0);animation:rippleOut 1.2s ease-out forwards;pointer-events:none;z-index:1}
 @keyframes rippleOut{to{transform:scale(6);opacity:0}}
 @keyframes explodeOut{from{transform:translate(0,0) scale(1);opacity:1}to{transform:translate(var(--x),var(--y)) scale(0.3);opacity:0}}
 @media(max-width:400px){.letter-wrap,.promise-card{padding:22px 16px}.photo-grid{gap:10px}}
-#voiceCard {
-  display:flex; align-items:center; gap:16px;
-  background:var(--surface2); border:1px solid var(--ink-dim);
-  border-radius:20px; padding:18px 22px;
-  max-width:360px; width:100%; margin-bottom:14px;
-}
-#voiceAvatar {
-  width:48px; height:48px; border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  display:flex; align-items:center; justify-content:center;
-  font-family:'Caveat',cursive; font-size:22px; font-weight:700;
-  color:#0a0a10; flex-shrink:0;
-}
-#voiceInfo { flex:1; text-align:left; }
-#voiceName { font-family:'Caveat',cursive; font-size:18px; color:var(--ink); }
-#voiceSub { font-size:13px; color:var(--ink-muted); font-style:italic; }
-#voicePlayBtn {
-  width:40px; height:40px; border-radius:50%;
-  background:var(--accent); border:none; cursor:pointer;
-  font-size:15px; color:#0a0a10; font-weight:bold;
-  transition:transform 0.2s; flex-shrink:0;
-}
-#voicePlayBtn:hover { transform:scale(1.1); }
-#voiceProgressWrap {
-  width:min(360px,88vw); height:4px; background:var(--ink-dim);
-  border-radius:4px; cursor:pointer; margin-bottom:8px;
-}
-#voiceProgress { height:100%; background:var(--accent); border-radius:4px; width:0%; transition:width 0.3s linear; }
-#voiceTime { font-family:'Caveat',cursive; font-size:16px; color:var(--ink-muted); margin-bottom:20px; }
-</style>
-<style id="css-empty">
-#emptyRoom {
-  max-width:500px; width:100%; text-align:center;
-}
-#emptyMoon {
-  font-size:70px; margin-bottom:28px;
-  animation: moonPulse 3s ease-in-out infinite;
-  filter: grayscale(0.8);
-}
-@keyframes moonPulse {
-  0%,100% { transform:translateY(0); opacity:0.6; }
-  50% { transform:translateY(-8px); opacity:1; }
-}
-.empty-line {
-  font-size:clamp(16px,4.5vw,24px); font-style:italic;
-  color:var(--ink-muted); line-height:1.8;
-  opacity:0; transform:translateY(10px);
-  transition: all 0.7s ease;
-}
-.empty-line.visible { opacity:1; transform:translateY(0); }
-</style>
-<style id="css-secret">
-#secretEnvelope {
-  font-size:80px; margin-bottom:20px;
-  animation: envelopeFloat 3s ease-in-out infinite;
-}
-@keyframes envelopeFloat {
-  0%,100% { transform:translateY(0) rotate(-3deg); }
-  50% { transform:translateY(-10px) rotate(3deg); }
-}
-#secretLetter {
-  background:var(--surface); border:1px solid var(--ink-dim);
-  border-radius:20px; padding:28px 24px; max-width:480px; width:100%;
-  backdrop-filter:blur(10px); text-align:left;
-}
-#secretText {
-  font-size:clamp(15px,3.8vw,20px); line-height:1.9;
-  font-style:italic; color:var(--ink);
-}
 </style>
 </head>
 <body>
@@ -264,14 +248,15 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
+<!-- VOICE -->
+<audio id="voiceAudio" src="voice.mp3"></audio>
+
 <div id="musicBar">
   <button id="playBtn" onclick="toggleMusic()">▶</button>
   <div class="music-info">
     <div class="music-title">💙 For you, Jannnahhhh</div>
     <div class="music-sub">maine yeh gaana apkyyy liye chuna…</div>
-    <div id="progressWrap" onclick="seekMusic(event)">
-      <div id="progressBar"></div>
-    </div>
+    <div id="progressWrap" onclick="seekMusic(event)"><div id="progressBar"></div></div>
   </div>
   <button class="vol-btn" onclick="toggleMute()">🔊</button>
 </div>
@@ -283,7 +268,7 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
   <div class="lb-caption" id="lbCaption"></div>
 </div>
 
-<!-- ══ SC0: PASSWORD ══ -->
+<!-- SC0: PASSWORD -->
 <div class="scene active" id="sc0">
   <div class="lock-moon">🌙</div>
   <div class="lock-title">Sirf Apkyy liye…</div>
@@ -293,7 +278,7 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
   <button class="btn" onclick="checkLock()">Andar aao ✨</button>
 </div>
 
-<!-- ══ SC1: TITLE ══ -->
+<!-- SC1: TITLE -->
 <div class="scene" id="sc1">
   <div class="sorry-big">I'm Sorry.</div>
   <div class="sorry-name">Sachchi mein, Jannnahhhh 💙</div>
@@ -303,44 +288,29 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
   <button class="btn" onclick="goTo(2);startLetter()">Meraa khatt parheinn 📖</button>
 </div>
 
-<!-- ══ SC2: LETTER ══ -->
+<!-- SC2: LETTER -->
 <div class="scene" id="sc2">
   <div class="letter-wrap">
     <div class="letter-date" id="letterDate"></div>
     <div id="letterText"></div>
   </div>
-  <button class="btn" id="letterBtn" style="opacity:0;pointer-events:none" onclick="goTo(3);showReasons()">
-    Kya galat kiya maine… 💙
-  </button>
+  <button class="btn" id="letterBtn" style="opacity:0;pointer-events:none" onclick="goTo(3);showReasons()">Kya galat kiya maine… 💙</button>
 </div>
 
-<!-- ══ SC3: REASONS ══ -->
+<!-- SC3: REASONS -->
 <div class="scene" id="sc3">
   <div class="section-title">Kya galat kiya maine…</div>
-  <div class="reason-card" id="r0">
-    <div class="reason-num">01</div>
-    <div class="reason-text">Maine appke saath sahi tarah pesh nahi aaya. App deserve karti ho isse kahin zyada sabr aur pyaar.</div>
-  </div>
-  <div class="reason-card" id="r1">
-    <div class="reason-num">02</div>
-    <div class="reason-text">Maine apni frustration App pyy nikali — jo bilkul bhi theek nahi tha. App ki koi galti nahi thi.</div>
-  </div>
-  <div class="reason-card" id="r2">
-    <div class="reason-num">03</div>
-    <div class="reason-text">Maine apkiii baaton ko utni gehrayi se nahi suna jitna apkaa haq tha. Yeh mujhe sachchi sharminda karta hai.</div>
-  </div>
-  <div class="reason-card" id="r3">
-    <div class="reason-num">04</div>
-    <div class="reason-text">Maine Apkoo hurt kiya — aur koi bhi excuse iske liye kafi nahi. app meri duniya ho aur maine apni duniya ko takleef di.</div>
-  </div>
+  <div class="reason-card" id="r0"><div class="reason-num">01</div><div class="reason-text">Maine appke saath sahi tarah pesh nahi aaya. App deserve karti ho isse kahin zyada sabr aur pyaar.</div></div>
+  <div class="reason-card" id="r1"><div class="reason-num">02</div><div class="reason-text">Maine apni frustration App pyy nikali — jo bilkul bhi theek nahi tha. App ki koi galti nahi thi.</div></div>
+  <div class="reason-card" id="r2"><div class="reason-num">03</div><div class="reason-text">Maine apkiii baaton ko utni gehrayi se nahi suna jitna apkaa haq tha. Yeh mujhe sachchi sharminda karta hai.</div></div>
+  <div class="reason-card" id="r3"><div class="reason-num">04</div><div class="reason-text">Maine Apkoo hurt kiya — aur koi bhi excuse iske liye kafi nahi. App meri duniya ho aur maine apni duniya ko takleef di.</div></div>
   <button class="btn" onclick="goTo(4);showPhotos()">Hamari yaadein 📸</button>
 </div>
 
-<!-- ══ SC4: PHOTOS ══ -->
+<!-- SC4: PHOTOS -->
 <div class="scene" id="sc4">
   <div class="section-title">Hamari Yaadein 📸</div>
   <p style="font-style:italic;color:var(--ink-muted);font-size:16px;margin-bottom:20px">yeh lamhe… yahi sach hain</p>
-
   <div class="photo-grid">
     <div class="photo-item" id="p0" onclick="openLightbox('sorry1.jpeg','Haider ki Jann 💙')">
       <img src="sorry1.jpeg" alt="" onerror="handleImgErr(this,'💙')">
@@ -354,7 +324,7 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
       <img src="sorry3.jpeg" alt="" onerror="handleImgErr(this,'🌸')">
       <div class="photo-caption">Meri duniya 💙</div>
     </div>
-    <div class="photo-item" id="p3" onclick="openLightbox('sorry4.jpeg','Hamesha tumhari 🌸')">
+    <div class="photo-item" id="p3" onclick="openLightbox('sorry4.jpeg','Hamesha Apkaaa 🌸')">
       <img src="sorry4.jpeg" alt="" onerror="handleImgErr(this,'✨')">
       <div class="photo-caption">Hamesha Apkaaa 🌸</div>
     </div>
@@ -363,43 +333,19 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
   <button class="btn" onclick="goTo(5);showTimeline()">Hamari kahani 🕰️</button>
 </div>
 
-<!-- ══ SC5: TIMELINE ══ -->
+<!-- SC5: TIMELINE -->
 <div class="scene" id="sc5">
   <div class="section-title">Hamari Kahani 🕰️</div>
   <div class="timeline">
-    <div class="tl-item" id="tl0">
-      <div><div class="tl-dot"></div></div>
-      <div>
-        <div class="tl-date">15 June 2024</div>
-        <div class="tl-text">Pehli baat… aur tab se appp mere dil mein aaye nahi gaye — reh gaye.</div>
-      </div>
-    </div>
-    <div class="tl-item" id="tl1">
-      <div><div class="tl-dot"></div></div>
-      <div>
-        <div class="tl-date">21 September 2024 — 4:24 AM</div>
-        <div class="tl-text">Pehli dafa "I love you" kaha. Sacchiii mein samjha us raat pyaar kya hota hai. Shukriya.</div>
-      </div>
-    </div>
-    <div class="tl-item" id="tl2">
-      <div><div class="tl-dot"></div></div>
-      <div>
-        <div class="tl-date">Woh pehli laraai 😅</div>
-        <div class="tl-text">Pictures pe hoi thi. Abhi tak solve nahi hui — par ab main samajhta hoon galti meri thi.</div>
-      </div>
-    </div>
-    <div class="tl-item" id="tl3">
-      <div><div class="tl-dot"></div></div>
-      <div>
-        <div class="tl-date">Aaj</div>
-        <div class="tl-text">Appse maafi maangna… yeh sirf words nahi. Main sacchhiii mein behtar banna chahta hoon. Apkyyy liye. 💙</div>
-      </div>
-    </div>
+    <div class="tl-item" id="tl0"><div><div class="tl-dot"></div></div><div><div class="tl-date">15 June 2024</div><div class="tl-text">Pehli baat… aur tab se appp mere dil mein aaye nahi gaye — reh gaye.</div></div></div>
+    <div class="tl-item" id="tl1"><div><div class="tl-dot"></div></div><div><div class="tl-date">21 September 2024 — 4:24 AM</div><div class="tl-text">Pehli dafa "I love you" kaha. Sacchiii mein samjha us raat pyaar kya hota hai. Shukriya.</div></div></div>
+    <div class="tl-item" id="tl2"><div><div class="tl-dot"></div></div><div><div class="tl-date">Woh pehli laraai 😅</div><div class="tl-text">Pictures pe hoi thi. Abhi tak solve nahi hui — par ab main samajhta hoon galti meri thi.</div></div></div>
+    <div class="tl-item" id="tl3"><div><div class="tl-dot"></div></div><div><div class="tl-date">Aaj</div><div class="tl-text">Appse maafi maangna… yeh sirf words nahi. Main sacchhiii mein behtar banna chahta hoon. Apkyyy liye. 💙</div></div></div>
   </div>
   <button class="btn" onclick="goTo(6);showPromises()">Mera wada suno 🤍</button>
 </div>
 
-<!-- ══ SC6: PROMISES ══ -->
+<!-- SC6: PROMISES -->
 <div class="scene" id="sc6">
   <div class="section-title" style="color:var(--accent2)">Mera Wada 🤍</div>
   <div style="font-style:italic;color:var(--ink-muted);font-size:16px;margin-bottom:4px">sirf wahi boloon ga jo nibha sakoon</div>
@@ -413,7 +359,7 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
   <button class="btn btn2" onclick="goTo(7);startRain()">Aakhri baat 💙</button>
 </div>
 
-<!-- ══ SC7: FINAL ══ -->
+<!-- SC7: FINAL -->
 <div class="scene" id="sc7">
   <div class="final-heart">💙</div>
   <div class="final-text">
@@ -424,13 +370,13 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
   <div class="final-sig">— Haider 🌙</div>
   <button class="btn" style="margin-top:28px" onclick="maafKaro()">Maaf kar do? 💙</button>
   <div id="maafMsg" style="display:none;margin-top:20px;font-family:'Caveat',cursive;font-size:clamp(20px,5vw,30px);color:var(--accent);line-height:1.6"></div>
+  <button class="btn btn2" style="margin-top:14px" onclick="goTo(8)">Meri Awaaz bhi sunoo 🎤</button>
 </div>
+
+<!-- SC8: VOICE NOTE -->
 <div class="scene" id="sc8">
   <div class="section-title">Meri Awaaz 🎤</div>
-  <p style="font-style:italic;color:var(--ink-muted);font-size:16px;margin-bottom:28px">
-    jo main keh nahi paaya… sunno
-  </p>
-
+  <p style="font-style:italic;color:var(--ink-muted);font-size:16px;margin-bottom:28px">jo main keh nahi paaya… sunno</p>
   <div id="voiceCard">
     <div id="voiceAvatar">H</div>
     <div id="voiceInfo">
@@ -439,52 +385,128 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
     </div>
     <button id="voicePlayBtn" onclick="toggleVoice()">▶</button>
   </div>
-
-  <div id="voiceProgressWrap" onclick="seekVoice(event)">
-    <div id="voiceProgress"></div>
-  </div>
+  <div id="voiceProgressWrap" onclick="seekVoice(event)"><div id="voiceProgress"></div></div>
   <div id="voiceTime">0:00 / 0:00</div>
-
-  <audio id="voiceAudio" src="voice.mp3"></audio>
-
   <button class="btn" onclick="goTo(9)">Aur bhi hai 💙</button>
 </div>
+
+<!-- SC9: EMPTY ROOM -->
 <div class="scene" id="sc9">
   <div id="emptyRoom">
     <div id="emptyMoon">🌑</div>
     <div id="emptyLines">
-      <div class="empty-line" id="el0">Jab tum naraaz hoti ho…</div>
+      <div class="empty-line" id="el0">Jab App naraaz hoti ho…</div>
       <div class="empty-line" id="el1">yeh kamra bahut bada lagta hai.</div>
       <div class="empty-line" id="el2">Phone uthata hoon — phir rakh deta hoon.</div>
-      <div class="empty-line" id="el3">Tumhe miss karta hoon.</div>
+      <div class="empty-line" id="el3">Apkoo miss karta hoon.</div>
       <div class="empty-line" id="el4">Har minute.</div>
       <div class="empty-line" id="el5" style="color:var(--accent);font-size:clamp(18px,5vw,28px)">Please wapis aao 💙</div>
     </div>
   </div>
   <button class="btn" style="margin-top:32px" onclick="goTo(10)">Aage chalo 💙</button>
 </div>
+
+<!-- SC10: SECRET PASSWORD -->
 <div class="scene" id="sc10">
   <div class="lock-moon" style="font-size:60px">💌</div>
   <div class="lock-title">Ek Raaz hai…</div>
-  <div class="lock-sub">sirf tumhare liye. Password daalo.</div>
+  <div class="lock-sub">sirf Apkyyy liye. Password daalo.</div>
   <input class="lock-input" id="pass2" type="password" placeholder="🔒 secret password…" autocomplete="off">
   <div class="lock-err" id="lockErr2">Nahi… thoda sochoo 💙</div>
   <button class="btn" onclick="checkSecret()">Kholna hai 🗝️</button>
 </div>
 
+<!-- SC10b: SECRET LETTER -->
 <div class="scene" id="sc10b">
   <div id="secretEnvelope">💌</div>
-  <div id="secretLetter">
-    <div id="secretText"></div>
-  </div>
+  <div id="secretLetter"><div id="secretText"></div></div>
   <button class="btn" onclick="goTo(11)">Aage 💙</button>
 </div>
 
-<!-- [CSS] paste inside <style> -->
+<!-- SC11: WISH ON A STAR -->
+<div class="scene" id="sc11">
+  <div class="section-title">Ek Sitaare pe Wish Karo ⭐</div>
+  <p style="font-style:italic;color:var(--ink-muted);font-size:16px;margin-bottom:30px">kisi bhi sitaare ko tap karo…</p>
+  <div id="starField"></div>
+  <div id="starWishBox" style="display:none">
+    <div id="starWishText"></div>
+    <button class="btn" style="margin-top:20px" onclick="resetStars()">Aur ek wish ⭐</button>
+  </div>
+  <button class="btn btn2" style="margin-top:24px" onclick="goTo(12)">Aage 💙</button>
+</div>
 
+<!-- SC12: DOODLE -->
+<div class="scene" id="sc12">
+  <div class="section-title">Hum Dono 🎨</div>
+  <p style="font-style:italic;color:var(--ink-muted);font-size:16px;margin-bottom:20px">main artist nahi hoon… par yeh dil se banaya hai 💙</p>
+  <svg id="doodle" viewBox="0 0 340 260" xmlns="http://www.w3.org/2000/svg">
+    <rect width="340" height="260" rx="20" fill="#0d0d1a"/>
+    <circle cx="30" cy="25" r="1.5" fill="white" opacity="0.8"/>
+    <circle cx="80" cy="15" r="1" fill="white" opacity="0.6"/>
+    <circle cx="260" cy="20" r="1.5" fill="white" opacity="0.9"/>
+    <circle cx="310" cy="35" r="1" fill="white" opacity="0.5"/>
+    <circle cx="170" cy="10" r="1" fill="white" opacity="0.7"/>
+    <circle cx="120" cy="40" r="1" fill="white" opacity="0.4"/>
+    <circle cx="290" cy="50" r="1.5" fill="white" opacity="0.6"/>
+    <circle cx="295" cy="30" r="18" fill="#2a2a3a"/>
+    <circle cx="300" cy="25" r="14" fill="#c9a8c4" opacity="0.9"/>
+    <ellipse cx="170" cy="245" rx="160" ry="18" fill="#1a1a28"/>
+    <rect x="110" y="190" width="120" height="8" rx="4" fill="#3a2a1a"/>
+    <rect x="120" y="198" width="8" height="22" rx="2" fill="#3a2a1a"/>
+    <rect x="212" y="198" width="8" height="22" rx="2" fill="#3a2a1a"/>
+    <rect x="110" y="178" width="120" height="6" rx="3" fill="#4a3020"/>
+    <!-- BOY -->
+    <rect x="128" y="155" width="24" height="32" rx="6" fill="#7eb8d4"/>
+    <circle cx="140" cy="147" r="14" fill="#d4a574"/>
+    <ellipse cx="140" cy="136" rx="13" ry="7" fill="#2a1a0a"/>
+    <rect x="127" y="138" width="5" height="8" rx="2" fill="#2a1a0a"/>
+    <circle cx="135" cy="147" r="2" fill="#1a0a00"/>
+    <circle cx="145" cy="147" r="2" fill="#1a0a00"/>
+    <path d="M135 153 Q140 157 145 153" stroke="#1a0a00" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M152 168 Q168 162 172 168" stroke="#7eb8d4" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <rect x="130" y="185" width="8" height="14" rx="4" fill="#2a3a5a"/>
+    <rect x="142" y="185" width="8" height="14" rx="4" fill="#2a3a5a"/>
+    <text x="140" y="215" text-anchor="middle" font-family="Caveat, cursive" font-size="11" fill="#7eb8d4">Haider</text>
+    <!-- GIRL -->
+    <path d="M188 155 Q195 175 210 185 Q195 188 188 185 Q175 188 170 185 Q185 175 188 155Z" fill="#c9a8c4"/>
+    <rect x="178" y="153" width="20" height="18" rx="5" fill="#c9a8c4"/>
+    <circle cx="188" cy="145" r="14" fill="#d4a574"/>
+    <ellipse cx="188" cy="134" rx="13" ry="7" fill="#1a0a10"/>
+    <rect x="175" y="136" width="5" height="20" rx="2" fill="#1a0a10"/>
+    <rect x="208" y="136" width="5" height="20" rx="2" fill="#1a0a10"/>
+    <ellipse cx="200" cy="132" rx="5" ry="3" fill="#e87a9a" transform="rotate(-20,200,132)"/>
+    <ellipse cx="207" cy="130" rx="5" ry="3" fill="#e87a9a" transform="rotate(20,207,130)"/>
+    <circle cx="203" cy="131" r="3" fill="#e87a9a"/>
+    <circle cx="183" cy="145" r="2" fill="#1a0a00"/>
+    <circle cx="193" cy="145" r="2" fill="#1a0a00"/>
+    <line x1="182" y1="142" x2="181" y2="140" stroke="#1a0a00" stroke-width="1"/>
+    <line x1="184" y1="141" x2="184" y2="139" stroke="#1a0a00" stroke-width="1"/>
+    <path d="M183 151 Q188 155 193 151" stroke="#1a0a00" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M178 168 Q168 162 164 168" stroke="#c9a8c4" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <text x="188" y="215" text-anchor="middle" font-family="Caveat, cursive" font-size="11" fill="#c9a8c4">Gurriya</text>
+    <text x="166" y="162" font-size="16" text-anchor="middle">💙</text>
+    <text x="170" y="240" text-anchor="middle" font-family="Caveat, cursive" font-size="13" fill="rgba(232,224,213,0.5)">hamesha Apkyyy saath 🌙</text>
+  </svg>
+  <p style="font-style:italic;color:var(--ink-muted);font-size:15px;margin-top:12px">yeh doodle Apkaa hai… hamesha ke liye 💙</p>
+  <button class="btn" onclick="goTo(13)">Aakhri cheez 📱</button>
+</div>
 
-<!-- [JS] paste inside <script> -->
-
+<!-- SC13: CHAT -->
+<div class="scene" id="sc13">
+  <div class="section-title">Kash yeh hota… 📱</div>
+  <p style="font-style:italic;color:var(--ink-muted);font-size:15px;margin-bottom:20px">jo main chahta hoon kehna…</p>
+  <div id="chatBox">
+    <div id="chatHeader">
+      <div id="chatAvatar">G</div>
+      <div><div id="chatName">Gurriya 💙</div><div id="chatStatus">online</div></div>
+    </div>
+    <div id="chatMessages"></div>
+    <div id="chatTyping" style="display:none">
+      <div class="typing-bubble"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+  <button class="btn" onclick="goTo(7)" style="margin-top:20px">Wapis jaao — Maaf karo 💙</button>
+</div>
 
 <script>
 /* STARS */
@@ -503,7 +525,6 @@ document.getElementById('letterDate').textContent=
 /* MUSIC */
 const audio=document.getElementById('bgMusic');
 let muted=false;
-
 function toggleMusic(){
   if(audio.paused){audio.play().catch(()=>{});document.getElementById('playBtn').textContent='⏸';}
   else{audio.pause();document.getElementById('playBtn').textContent='▶';}
@@ -518,9 +539,7 @@ function seekMusic(e){
   if(audio.duration)audio.currentTime=pct*audio.duration;
 }
 audio.addEventListener('timeupdate',()=>{
-  if(audio.duration){
-    document.getElementById('progressBar').style.width=(audio.currentTime/audio.duration*100)+'%';
-  }
+  if(audio.duration)document.getElementById('progressBar').style.width=(audio.currentTime/audio.duration*100)+'%';
 });
 function showMusicBar(){
   document.getElementById('musicBar').classList.add('show');
@@ -546,9 +565,9 @@ function goTo(n){
   document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
   document.getElementById('sc'+n).classList.add('active');
   createRipple();
-  if (n === 9)  showEmptyLines();
-if (n === 11) buildStarField();
-if (n === 13) startChat();
+  if(n===9) showEmptyLines();
+  if(n===11) buildStarField();
+  if(n===13) startChat();
 }
 function createRipple(){
   const r=document.createElement('div');r.className='ripple';const sz=80;
@@ -570,16 +589,16 @@ Main sahi tarah nahi kar pa raha tha.
 Aur apkoo takleef di — jaante hue bhi.
 
 App Merii duniyaa hynn — aur maine apni duniya ko takleef di.
-Yarr me messs up kardetaa honn harr cheezz pata nahi kyunnn 
-mujhyy kuch  nahii chahiyee apsyy kuchh bhii nahii 
+Yarr me messs up kardetaa honn harr cheezz pata nahi kyunnn
+mujhyy kuch nahii chahiyee apsyy kuchh bhii nahii
 picturess dossri picturess vc kuchh nahii chahiyee —
- bas apkoo khush dekhnaa chahtaa hoon.
+bas apkoo khush dekhnaa chahtaa hoon.
 
- App khush hogi toh meri duniya khush hogi.
- App khush nahi hogi toh meri duniya bhi udaas rahegi.
- App khilkhilaaogyy toh meri duniya bhi khil jaayegi.
+App khush hogi toh meri duniya khush hogi.
+App khush nahi hogi toh meri duniya bhi udaas rahegi.
+App khilkhilaaogyy toh meri duniya bhi khil jaayegi.
 
- Yeh sab bolna zaroori tha.
+Yeh sab bolna zaroori tha.
 Kyunke appp maafi ki haqdar nahi hynn —
 Appp sachhayy pyaar ki haqdarrr hyn. 💙
 
@@ -613,7 +632,7 @@ function showReasons(){
 }
 
 /* PHOTOS */
-function handleImgErr(img, emoji){
+function handleImgErr(img,emoji){
   img.style.display='none';
   const ph=document.createElement('div');
   ph.className='photo-placeholder';ph.textContent=emoji;
@@ -625,8 +644,7 @@ function showPhotos(){
   });
 }
 function openLightbox(src,caption){
-  const img=document.getElementById('lbImg');
-  img.src=src;
+  document.getElementById('lbImg').src=src;
   document.getElementById('lbCaption').textContent=caption;
   document.getElementById('lightbox').classList.add('show');
 }
@@ -692,7 +710,7 @@ function explode(){
 }
 
 /* WHISPERS */
-const whispers=["Main Apsyy  Bohottt Pyaar karta hoon 💙","Appp meri duniya hynn 🌙","Main yahan hoon hamesha 🌸","Tum sab se zyada important ho ✨","Maafi de deinnn… please 💙"];
+const whispers=["Main Apsyy Bohottt Pyaar karta hoon 💙","Appp meri duniya hynn 🌙","Main yahan hoon hamesha 🌸","App sab se zyada important ho ✨","Maafi de deinnn… please 💙"];
 function showWhisper(){
   const w=document.getElementById('whisper');
   w.innerText=whispers[Math.floor(Math.random()*whispers.length)];
@@ -701,101 +719,164 @@ function showWhisper(){
   setTimeout(showWhisper,18000+Math.random()*12000);
 }
 setTimeout(showWhisper,20000);
-const voiceAudio = document.getElementById('voiceAudio');
-let voicePlaying = false;
 
-function toggleVoice() {
-  if (voicePlaying) {
+/* VOICE NOTE */
+const voiceAudio=document.getElementById('voiceAudio');
+let voicePlaying=false;
+function toggleVoice(){
+  if(voicePlaying){
     voiceAudio.pause();
-    document.getElementById('voicePlayBtn').textContent = '▶';
-    document.getElementById('voiceSub').textContent = 'Voice Message · paused';
+    document.getElementById('voicePlayBtn').textContent='▶';
+    document.getElementById('voiceSub').textContent='Voice Message · paused';
   } else {
-    voiceAudio.play().catch(() => {});
-    document.getElementById('voicePlayBtn').textContent = '⏸';
-    document.getElementById('voiceSub').textContent = 'Playing… 🎙️';
+    voiceAudio.play().catch(()=>{});
+    document.getElementById('voicePlayBtn').textContent='⏸';
+    document.getElementById('voiceSub').textContent='Playing… 🎙️';
   }
-  voicePlaying = !voicePlaying;
+  voicePlaying=!voicePlaying;
 }
-
-function seekVoice(e) {
-  const rect = e.currentTarget.getBoundingClientRect();
-  const pct = (e.clientX - rect.left) / rect.width;
-  if (voiceAudio.duration) voiceAudio.currentTime = pct * voiceAudio.duration;
+function seekVoice(e){
+  const rect=e.currentTarget.getBoundingClientRect();
+  const pct=(e.clientX-rect.left)/rect.width;
+  if(voiceAudio.duration)voiceAudio.currentTime=pct*voiceAudio.duration;
 }
-
-function fmtTime(s) {
-  const m = Math.floor(s / 60);
-  const sec = Math.floor(s % 60);
+function fmtTime(s){
+  const m=Math.floor(s/60),sec=Math.floor(s%60);
   return `${m}:${sec.toString().padStart(2,'0')}`;
 }
-
-voiceAudio.addEventListener('timeupdate', () => {
-  if (voiceAudio.duration) {
-    document.getElementById('voiceProgress').style.width = (voiceAudio.currentTime / voiceAudio.duration * 100) + '%';
-    document.getElementById('voiceTime').textContent = fmtTime(voiceAudio.currentTime) + ' / ' + fmtTime(voiceAudio.duration);
+voiceAudio.addEventListener('timeupdate',()=>{
+  if(voiceAudio.duration){
+    document.getElementById('voiceProgress').style.width=(voiceAudio.currentTime/voiceAudio.duration*100)+'%';
+    document.getElementById('voiceTime').textContent=fmtTime(voiceAudio.currentTime)+' / '+fmtTime(voiceAudio.duration);
   }
 });
-
-voiceAudio.addEventListener('ended', () => {
-  voicePlaying = false;
-  document.getElementById('voicePlayBtn').textContent = '▶';
-  document.getElementById('voiceSub').textContent = 'Voice Message · ended';
+voiceAudio.addEventListener('ended',()=>{
+  voicePlaying=false;
+  document.getElementById('voicePlayBtn').textContent='▶';
+  document.getElementById('voiceSub').textContent='Voice Message · ended';
 });
-</script>
-<script id="js-empty">
-function showEmptyLines() {
-  ['el0','el1','el2','el3','el4','el5'].forEach((id,i) => {
-    setTimeout(() => document.getElementById(id).classList.add('visible'), 400 + i * 700);
+
+/* EMPTY ROOM */
+function showEmptyLines(){
+  ['el0','el1','el2','el3','el4','el5'].forEach((id,i)=>{
+    setTimeout(()=>document.getElementById(id).classList.add('visible'),400+i*700);
   });
 }
-// Call showEmptyLines() when entering sc9
-// Add to your goTo() function or call it with: onclick="goTo(9);showEmptyLines()"
-</script>
-<script id="js-secret">
-const secretContent = `Yeh woh baat hai jo main kabhi openly nahi bol paata…
+
+/* SECRET */
+const secretContent=`Yeh woh baat hai jo main kabhi openly nahi bol paata…
 
 Main darr jaata hoon.
-Darr jaata hoon ke tum chhod ke chali jaogi.
+Darr jaata hoon ke App chhod ke chali jaogi.
 Isliye kabhi kabhi galat behave karta hoon —
 apni feelings chhupaata hoon.
 
 Par sachchi mein?
-Tum meri sabse badi taaqat ho.
+App meri sabse badi taaqat ho.
 Aur meri sabse badi kamzori bhi.
 
-Main tumhare bina adhoora hoon, Jannnahhhh.
+Main Apkyyy bina adhoora hoon, Jannnahhhh.
 Yeh mera raaz tha. 💙
 
 — Haider`;
 
-function checkSecret() {
-  const v = document.getElementById('pass2').value.trim().toLowerCase();
-  const err = document.getElementById('lockErr2');
-  if (v === 'jaanu' || v === 'jaan' || v === 'gurriya' || v.startsWith('guriya')) {
-    goTo('10b');
-    typeSecret();
+function checkSecret(){
+  const v=document.getElementById('pass2').value.trim().toLowerCase();
+  const err=document.getElementById('lockErr2');
+  if(v==='jaanu'||v==='jaan'||v==='gurriya'||v.startsWith('guriya')){
+    goTo('10b');typeSecret();
   } else {
-    err.style.opacity = '1';
-    document.getElementById('pass2').style.animation = 'shake 0.4s';
-    setTimeout(() => document.getElementById('pass2').style.animation = '', 400);
+    err.style.opacity='1';
+    document.getElementById('pass2').style.animation='shake 0.4s';
+    setTimeout(()=>document.getElementById('pass2').style.animation='',400);
   }
 }
-document.getElementById('pass2')?.addEventListener('keydown', e => { if(e.key==='Enter') checkSecret(); });
+document.getElementById('pass2').addEventListener('keydown',e=>{if(e.key==='Enter')checkSecret();});
 
-function typeSecret() {
-  const el = document.getElementById('secretText');
-  el.innerHTML = ''; let i = 0;
-  const cursor = document.createElement('span'); cursor.className = 'cursor-blink';
-  function type() {
-    if (i < secretContent.length) {
-      const ch = secretContent[i];
-      if (ch === '\n') el.appendChild(document.createElement('br'));
+function typeSecret(){
+  const el=document.getElementById('secretText');el.innerHTML='';let i=0;
+  const cursor=document.createElement('span');cursor.className='cursor-blink';
+  function type(){
+    if(i<secretContent.length){
+      const ch=secretContent[i];
+      if(ch==='\n')el.appendChild(document.createElement('br'));
       else el.appendChild(document.createTextNode(ch));
-      i++; el.appendChild(cursor);
-      setTimeout(type, ch === '\n' ? 80 : 32);
-    } else { cursor.remove(); }
+      i++;el.appendChild(cursor);
+      setTimeout(type,ch==='\n'?80:32);
+    } else {cursor.remove();}
   }
   type();
+}
+
+/* STAR WISH */
+const starPromises=[
+  "Main wada karta hoon… Apkiii har takleef mein saath khada rhoonga. 💙",
+  "Main wada karta hoon… kabhi Apkoo akela mehsoos nahi hone doonga. 🌙",
+  "Main wada karta hoon… Apkyyy liye pehle sochoon ga, phir boloon ga. ✨",
+  "Main wada karta hoon… Apkiii muskurahat meri zimmedari hai. 🌸",
+  "Main wada karta hoon… App hamesha meri pehli priority rahogi. 💙",
+  "Main wada karta hoon… jo bhi ho, App safe hogi mere saath. ⭐",
+  "Main wada karta hoon… pyaar ko action mein dikhaoonga, sirf words mein nahi. 🌙",
+];
+let usedWishes=[];
+function buildStarField(){
+  const sf=document.getElementById('starField');sf.innerHTML='';usedWishes=[];
+  document.getElementById('starWishBox').style.display='none';
+  for(let i=0;i<9;i++){
+    const s=document.createElement('div');s.className='wish-star';s.textContent='⭐';
+    s.style.animationDelay=(i*0.2)+'s';
+    s.onclick=()=>revealWish(s);
+    sf.appendChild(s);
+  }
+}
+function revealWish(star){
+  star.textContent='✨';star.style.transform='scale(1.4)';
+  star.style.filter='drop-shadow(0 0 12px gold)';star.onclick=null;
+  const remaining=starPromises.filter((_,i)=>!usedWishes.includes(i));
+  if(!remaining.length){usedWishes=[];}
+  const idx=Math.floor(Math.random()*remaining.length);usedWishes.push(idx);
+  document.getElementById('starWishText').textContent=remaining[idx];
+  document.getElementById('starWishBox').style.display='block';
+  document.getElementById('starWishBox').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function resetStars(){buildStarField();}
+
+/* CHAT */
+const chatScript=[
+  {from:'me', text:'Jannnahhhh… main bahut sorry hoon. 💙', delay:600},
+  {from:'her',text:'...', delay:2000},
+  {from:'her',text:'Kitni takleef di tumne.', delay:3200},
+  {from:'me', text:'Pata hai. Aur main haq se nahi kehta ke maaf karo. Par sunna chahta hoon tumhe.', delay:4800},
+  {from:'her',text:'Kyon? Ab kya farak padta hai?', delay:6500},
+  {from:'me', text:'Kyunke App meri duniya ho. Aur main apni duniya ko kho nahi sakta.', delay:8200},
+  {from:'her',text:'...', delay:10000},
+  {from:'her',text:'Tumhe change karna hoga Haider.', delay:11500},
+  {from:'me', text:'Wada karta hoon. Apkyyy liye nahi — Apkyyy saath. 💙', delay:13200},
+  {from:'her',text:'💙', delay:15500},
+];
+let chatStarted=false;
+function startChat(){
+  if(chatStarted)return;chatStarted=true;
+  const msgs=document.getElementById('chatMessages');msgs.innerHTML='';
+  chatScript.forEach(msg=>{
+    setTimeout(()=>{
+      if(msg.from==='her'){
+        document.getElementById('chatTyping').style.display='block';
+        setTimeout(()=>{document.getElementById('chatTyping').style.display='none';addMsg(msg);},900);
+      } else {addMsg(msg);}
+    },msg.delay);
+  });
+}
+function addMsg(msg){
+  const msgs=document.getElementById('chatMessages');
+  const div=document.createElement('div');div.className=`msg ${msg.from}`;
+  div.innerHTML=`${msg.text}<div class="msg-time">${getTime()}</div>`;
+  msgs.appendChild(div);
+  requestAnimationFrame(()=>div.classList.add('visible'));
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function getTime(){
+  return new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit',hour12:true});
 }
 </script>
 </body>
