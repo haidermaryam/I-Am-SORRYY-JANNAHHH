@@ -328,6 +328,10 @@ html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormora
       <img src="sorry4.jpeg" alt="" onerror="handleImgErr(this,'✨')">
       <div class="photo-caption">Hamesha Apkaaa 🌸</div>
     </div>
+    <div class="photo-item" id="p4" onclick="openLightbox('sorry5.jpeg','Mitthiiiii 🌸')">
+      <img src="sorry5.jpeg" alt="" onerror="handleImgErr(this,'✨')">
+      <div class="photo-caption">Mitthiiiii 🌸</div>
+    </div>
   </div>
   <p style="font-size:13px;color:var(--ink-dim);font-style:italic;margin-top:4px">tap karo kisi bhi photo pe ✨</p>
   <button class="btn" onclick="goTo(5);showTimeline()">Hamari kahani 🕰️</button>
@@ -565,6 +569,8 @@ function goTo(n){
   document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
   document.getElementById('sc'+n).classList.add('active');
   createRipple();
+  if(n===8){ audio.pause(); document.getElementById('playBtn').textContent='▶'; }
+  else if(!audio.paused===false && n!==8){ audio.play().catch(()=>{}); document.getElementById('playBtn').textContent='⏸'; }
   if(n===9) showEmptyLines();
   if(n===11) buildStarField();
   if(n===13) startChat();
