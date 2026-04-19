@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>I'm Sorry, Jannnahhhh 💙</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#e8e0d5;--ink-muted:rgba(232,224,213,0.55);--ink-dim:rgba(232,224,213,0.2);
+  --bg:#0a0a10;--surface:rgba(255,255,255,0.045);--surface2:rgba(255,255,255,0.07);
+  --accent:#7eb8d4;--accent2:#c9a8c4;--glow:rgba(126,184,212,0.18);
+}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:'Cormorant Garamond',serif;overflow:hidden}
+
+/* STARS */
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0}
+.star{position:absolute;background:white;border-radius:50%;animation:twinkle var(--d) ease-in-out infinite;opacity:0}
+@keyframes twinkle{0%,100%{opacity:0}50%{opacity:var(--op)}}
+
+/* MUSIC BAR */
+#musicBar{
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(10,10,16,0.94);border-top:1px solid var(--ink-dim);
+  backdrop-filter:blur(20px);display:flex;align-items:center;gap:14px;
+  padding:12px 20px;z-index:1000;
+  transform:translateY(100%);transition:transform 0.6s cubic-bezier(0.34,1.56,0.64,1);
+}
+#musicBar.show{transform:translateY(0)}
+#playBtn{
+  width:42px;height:42px;border-radius:50%;background:var(--accent);border:none;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;transition:transform 0.2s,box-shadow 0.2s;
+  box-shadow:0 4px 16px rgba(126,184,212,0.4);color:#0a0a10;font-weight:bold;
+}
+#playBtn:hover{transform:scale(1.1)}
+.music-info{flex:1;overflow:hidden}
+.music-title{font-family:'Caveat',cursive;font-size:16px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-sub{font-size:12px;color:var(--ink-muted);font-style:italic}
+#progressWrap{width:100%;height:3px;background:var(--ink-dim);border-radius:2px;margin-top:6px;cursor:pointer;position:relative}
+#progressBar{height:100%;background:var(--accent);border-radius:2px;width:0%;transition:width 0.5s linear}
+.vol-btn{background:none;border:none;color:var(--ink-muted);font-size:18px;cursor:pointer;flex-shrink:0;transition:color 0.2s}
+.vol-btn:hover{color:var(--accent)}
+
+/* SCENES */
+.scene{
+  position:fixed;inset:0 0 70px 0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:40px 24px 20px;
+  z-index:10;opacity:0;pointer-events:none;transition:opacity 1.2s ease;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;text-align:center;
+}
+.scene.active{opacity:1;pointer-events:all}
+
+/* LOCK */
+.lock-moon{font-size:80px;animation:moonFloat 4s ease-in-out infinite;margin-bottom:20px}
+@keyframes moonFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.lock-title{font-family:'Caveat',cursive;font-size:clamp(28px,7vw,48px);color:var(--accent);margin-bottom:8px}
+.lock-sub{font-size:clamp(14px,3.5vw,18px);font-style:italic;color:var(--ink-muted);margin-bottom:32px}
+.lock-input{
+  background:var(--surface);border:1px solid var(--ink-dim);border-radius:50px;
+  padding:14px 28px;font-family:'Caveat',cursive;font-size:20px;color:var(--ink);
+  text-align:center;width:min(300px,80vw);outline:none;transition:border-color 0.3s;
+}
+.lock-input:focus{border-color:var(--accent)}
+.lock-input::placeholder{color:var(--ink-dim)}
+.lock-err{color:#e87a7a;font-family:'Caveat',cursive;font-size:18px;margin-top:12px;opacity:0;transition:opacity 0.4s}
+
+/* BUTTONS */
+.btn{
+  margin-top:28px;padding:14px 36px;font-family:'Caveat',cursive;font-size:20px;
+  background:transparent;border:1px solid var(--accent);color:var(--accent);
+  border-radius:50px;cursor:pointer;transition:all 0.3s ease;letter-spacing:0.5px;
+}
+.btn:hover{background:var(--glow);transform:translateY(-2px);box-shadow:0 8px 24px var(--glow)}
+.btn2{border-color:var(--accent2);color:var(--accent2)}
+.btn2:hover{background:rgba(201,168,196,0.12);box-shadow:0 8px 24px rgba(201,168,196,0.2)}
+
+/* TITLE */
+.sorry-big{
+  font-family:'Caveat',cursive;font-size:clamp(52px,16vw,110px);font-weight:600;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  line-height:1;animation:fadeUp 1.4s ease both;
+}
+.sorry-name{font-size:clamp(20px,5vw,32px);font-style:italic;color:var(--ink-muted);margin-top:12px;animation:fadeUp 1.4s 0.3s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* LETTER */
+.letter-wrap{
+  background:var(--surface);border:1px solid var(--ink-dim);border-radius:20px;
+  padding:32px 28px;max-width:580px;width:100%;backdrop-filter:blur(10px);text-align:left;
+}
+.letter-date{font-size:14px;color:var(--ink-dim);margin-bottom:20px;font-style:italic}
+#letterText{font-size:clamp(15px,3.5vw,19px);line-height:1.9;color:var(--ink);min-height:180px}
+.cursor-blink{display:inline-block;width:2px;height:1.1em;background:var(--accent);margin-left:2px;vertical-align:text-bottom;animation:blink 1s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* REASONS */
+.section-title{font-family:'Caveat',cursive;font-size:clamp(26px,7vw,44px);color:var(--accent);margin-bottom:28px}
+.reason-card{
+  background:var(--surface);border-left:2px solid var(--accent2);border-radius:0 14px 14px 0;
+  padding:16px 20px;margin-bottom:14px;max-width:520px;width:100%;text-align:left;
+  opacity:0;transform:translateX(-20px);transition:all 0.5s ease;
+}
+.reason-card.visible{opacity:1;transform:translateX(0)}
+.reason-num{font-family:'Caveat',cursive;font-size:13px;color:var(--accent2);margin-bottom:4px;letter-spacing:2px;text-transform:uppercase}
+.reason-text{font-size:clamp(14px,3.5vw,17px);font-style:italic;line-height:1.7}
+
+/* PHOTOS */
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:520px;width:100%;margin-bottom:8px}
+.photo-item{
+  position:relative;border-radius:16px;overflow:hidden;aspect-ratio:1;cursor:pointer;
+  opacity:0;transform:scale(0.9);transition:all 0.5s ease;border:1px solid var(--ink-dim);
+  background:var(--surface2);min-height:120px;
+}
+.photo-item.visible{opacity:1;transform:scale(1)}
+.photo-item img{width:100%;height:100%;object-fit:cover;transition:transform 0.4s ease;display:block}
+.photo-item:hover img{transform:scale(1.06)}
+.photo-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(0,0,0,0.75));
+  color:white;font-family:'Caveat',cursive;font-size:15px;padding:20px 10px 8px;text-align:center;
+}
+.photo-placeholder{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:32px;color:var(--ink-dim);
+}
+
+/* LIGHTBOX */
+#lightbox{
+  position:fixed;inset:0;background:rgba(0,0,0,0.93);display:flex;align-items:center;
+  justify-content:center;z-index:2000;opacity:0;pointer-events:none;transition:opacity 0.4s;
+}
+#lightbox.show{opacity:1;pointer-events:all}
+#lightbox img{max-width:90vw;max-height:75vh;border-radius:16px;transform:scale(0.85);transition:transform 0.4s ease}
+#lightbox.show img{transform:scale(1)}
+.lb-close{position:absolute;top:20px;right:24px;font-size:36px;color:white;cursor:pointer;line-height:1;z-index:10}
+.lb-caption{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);font-family:'Caveat',cursive;font-size:22px;color:white;text-align:center;white-space:nowrap}
+
+/* TIMELINE */
+.timeline{max-width:500px;width:100%;text-align:left;padding:10px 0}
+.tl-item{display:flex;gap:16px;margin-bottom:24px;opacity:0;transform:translateY(16px);transition:all 0.5s ease}
+.tl-item.visible{opacity:1;transform:translateY(0)}
+.tl-dot{width:12px;height:12px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:6px;position:relative}
+.tl-dot::after{content:'';position:absolute;top:12px;left:5px;width:2px;height:calc(100% + 12px);background:var(--ink-dim)}
+.tl-item:last-child .tl-dot::after{display:none}
+.tl-date{font-family:'Caveat',cursive;color:var(--accent2);font-size:14px;margin-bottom:2px}
+.tl-text{font-size:clamp(14px,3.5vw,17px);font-style:italic;line-height:1.6}
+
+/* PROMISES */
+.promise-card{
+  background:var(--surface);border:1px solid var(--ink-dim);border-radius:20px;
+  padding:32px 28px;max-width:520px;width:100%;margin-top:20px;backdrop-filter:blur(12px);
+}
+.promise-line{font-size:clamp(15px,3.8vw,20px);line-height:2.1;color:var(--ink);opacity:0;transform:translateX(-10px);transition:all 0.5s ease}
+.promise-line.visible{opacity:1;transform:translateX(0)}
+.promise-line .check{color:var(--accent);margin-right:10px}
+
+/* FINAL */
+.final-heart{font-size:90px;animation:heartbeat 1.4s ease-in-out infinite}
+@keyframes heartbeat{0%,100%{transform:scale(1)}14%{transform:scale(1.18)}28%{transform:scale(1)}42%{transform:scale(1.1)}70%{transform:scale(1)}}
+.final-text{font-size:clamp(18px,5vw,30px);font-style:italic;color:var(--ink-muted);margin-top:20px;max-width:460px;line-height:1.7}
+.final-sig{font-family:'Caveat',cursive;font-size:clamp(26px,6vw,42px);color:var(--accent);margin-top:24px}
+
+/* RAIN */
+.rain-drop{position:fixed;top:-20px;font-size:14px;opacity:0.6;pointer-events:none;animation:rainFall linear forwards;z-index:1}
+@keyframes rainFall{to{transform:translateY(110vh);opacity:0}}
+
+/* WHISPER */
+#whisper{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%);
+  background:rgba(255,255,255,0.07);color:var(--ink);padding:10px 20px;border-radius:20px;
+  font-family:'Caveat',cursive;font-size:clamp(14px,3.5vw,18px);
+  opacity:0;pointer-events:none;transition:opacity 1.5s ease;z-index:999;
+  backdrop-filter:blur(6px);white-space:nowrap;max-width:90vw;text-align:center;
+}
+
+/* MISC */
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.ripple{position:fixed;border-radius:50%;border:1px solid var(--accent);transform:scale(0);animation:rippleOut 1.2s ease-out forwards;pointer-events:none;z-index:1}
+@keyframes rippleOut{to{transform:scale(6);opacity:0}}
+@keyframes explodeOut{from{transform:translate(0,0) scale(1);opacity:1}to{transform:translate(var(--x),var(--y)) scale(0.3);opacity:0}}
+@media(max-width:400px){.letter-wrap,.promise-card{padding:22px 16px}.photo-grid{gap:10px}}
+</style>
+</head>
+<body>
+
+<div id="stars"></div>
+<div id="whisper"></div>
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="sorry.mp3" type="audio/mpeg">
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div id="musicBar">
+  <button id="playBtn" onclick="toggleMusic()">▶</button>
+  <div class="music-info">
+    <div class="music-title">💙 For you, Jannnahhhh</div>
+    <div class="music-sub">maine yeh gaana apkyyy liye chuna…</div>
+    <div id="progressWrap" onclick="seekMusic(event)">
+      <div id="progressBar"></div>
+    </div>
+  </div>
+  <button class="vol-btn" onclick="toggleMute()">🔊</button>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <span class="lb-close" onclick="closeLightbox()">×</span>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-caption" id="lbCaption"></div>
+</div>
+
+<!-- ══ SC0: PASSWORD ══ -->
+<div class="scene active" id="sc0">
+  <div class="lock-moon">🌙</div>
+  <div class="lock-title">Sirf Apkyy liye…</div>
+  <div class="lock-sub">password Jannahhhh, meri Gurriya</div>
+  <input class="lock-input" id="passIn" type="password" placeholder="🔒 tumhara password…" autocomplete="off">
+  <div class="lock-err" id="lockErr">Galat… mujhe pata hai app jaanti ho 💙</div>
+  <button class="btn" onclick="checkLock()">Andar aao ✨</button>
+</div>
+
+<!-- ══ SC1: TITLE ══ -->
+<div class="scene" id="sc1">
+  <div class="sorry-big">I'm Sorry.</div>
+  <div class="sorry-name">Sachchi mein, Jannnahhhh 💙</div>
+  <p style="font-style:italic;color:var(--ink-muted);font-size:clamp(14px,3.5vw,18px);margin-top:16px;max-width:380px;line-height:1.7">
+    Main jaanta hoon app bahut gusse mein ho.<br>Aur app haq pe ho.
+  </p>
+  <button class="btn" onclick="goTo(2);startLetter()">Meraa khatt parheinn 📖</button>
+</div>
+
+<!-- ══ SC2: LETTER ══ -->
+<div class="scene" id="sc2">
+  <div class="letter-wrap">
+    <div class="letter-date" id="letterDate"></div>
+    <div id="letterText"></div>
+  </div>
+  <button class="btn" id="letterBtn" style="opacity:0;pointer-events:none" onclick="goTo(3);showReasons()">
+    Kya galat kiya maine… 💙
+  </button>
+</div>
+
+<!-- ══ SC3: REASONS ══ -->
+<div class="scene" id="sc3">
+  <div class="section-title">Kya galat kiya maine…</div>
+  <div class="reason-card" id="r0">
+    <div class="reason-num">01</div>
+    <div class="reason-text">Maine appke saath sahi tarah pesh nahi aaya. App deserve karti ho isse kahin zyada sabr aur pyaar.</div>
+  </div>
+  <div class="reason-card" id="r1">
+    <div class="reason-num">02</div>
+    <div class="reason-text">Maine apni frustration App pyy nikali — jo bilkul bhi theek nahi tha. App ki koi galti nahi thi.</div>
+  </div>
+  <div class="reason-card" id="r2">
+    <div class="reason-num">03</div>
+    <div class="reason-text">Maine apkiii baaton ko utni gehrayi se nahi suna jitna apkaa haq tha. Yeh mujhe sachchi sharminda karta hai.</div>
+  </div>
+  <div class="reason-card" id="r3">
+    <div class="reason-num">04</div>
+    <div class="reason-text">Maine Apkoo hurt kiya — aur koi bhi excuse iske liye kafi nahi. app meri duniya ho aur maine apni duniya ko takleef di.</div>
+  </div>
+  <button class="btn" onclick="goTo(4);showPhotos()">Hamari yaadein 📸</button>
+</div>
+
+<!-- ══ SC4: PHOTOS ══ -->
+<div class="scene" id="sc4">
+  <div class="section-title">Hamari Yaadein 📸</div>
+  <p style="font-style:italic;color:var(--ink-muted);font-size:16px;margin-bottom:20px">yeh lamhe… yahi sach hain</p>
+
+  <div class="photo-grid">
+    <div class="photo-item" id="p0" onclick="openLightbox('sorry1.jpeg','Haider ki Jann 💙')">
+      <img src="sorry1.jpeg" alt="" onerror="handleImgErr(this,'💙')">
+      <div class="photo-caption">Haider ki Jann 💙</div>
+    </div>
+    <div class="photo-item" id="p1" onclick="openLightbox('sorry2.jpeg','Haider ki Gurriya 🌙')">
+      <img src="sorry2.jpeg" alt="" onerror="handleImgErr(this,'🌙')">
+      <div class="photo-caption">Haider ki Gurriya 🌙</div>
+    </div>
+    <div class="photo-item" id="p2" onclick="openLightbox('sorry3.jpeg','Meri duniya 💙')">
+      <img src="sorry3.jpeg" alt="" onerror="handleImgErr(this,'🌸')">
+      <div class="photo-caption">Meri duniya 💙</div>
+    </div>
+    <div class="photo-item" id="p3" onclick="openLightbox('sorry4.jpeg','Hamesha tumhari 🌸')">
+      <img src="sorry4.jpeg" alt="" onerror="handleImgErr(this,'✨')">
+      <div class="photo-caption">Hamesha Apkaaa 🌸</div>
+    </div>
+  </div>
+  <p style="font-size:13px;color:var(--ink-dim);font-style:italic;margin-top:4px">tap karo kisi bhi photo pe ✨</p>
+  <button class="btn" onclick="goTo(5);showTimeline()">Hamari kahani 🕰️</button>
+</div>
+
+<!-- ══ SC5: TIMELINE ══ -->
+<div class="scene" id="sc5">
+  <div class="section-title">Hamari Kahani 🕰️</div>
+  <div class="timeline">
+    <div class="tl-item" id="tl0">
+      <div><div class="tl-dot"></div></div>
+      <div>
+        <div class="tl-date">15 June 2024</div>
+        <div class="tl-text">Pehli baat… aur tab se appp mere dil mein aaye nahi gaye — reh gaye.</div>
+      </div>
+    </div>
+    <div class="tl-item" id="tl1">
+      <div><div class="tl-dot"></div></div>
+      <div>
+        <div class="tl-date">21 September 2024 — 4:24 AM</div>
+        <div class="tl-text">Pehli dafa "I love you" kaha. Sacchiii mein samjha us raat pyaar kya hota hai. Shukriya.</div>
+      </div>
+    </div>
+    <div class="tl-item" id="tl2">
+      <div><div class="tl-dot"></div></div>
+      <div>
+        <div class="tl-date">Woh pehli laraai 😅</div>
+        <div class="tl-text">Pictures pe hoi thi. Abhi tak solve nahi hui — par ab main samajhta hoon galti meri thi.</div>
+      </div>
+    </div>
+    <div class="tl-item" id="tl3">
+      <div><div class="tl-dot"></div></div>
+      <div>
+        <div class="tl-date">Aaj</div>
+        <div class="tl-text">Appse maafi maangna… yeh sirf words nahi. Main sacchhiii mein behtar banna chahta hoon. Apkyyy liye. 💙</div>
+      </div>
+    </div>
+  </div>
+  <button class="btn" onclick="goTo(6);showPromises()">Mera wada suno 🤍</button>
+</div>
+
+<!-- ══ SC6: PROMISES ══ -->
+<div class="scene" id="sc6">
+  <div class="section-title" style="color:var(--accent2)">Mera Wada 🤍</div>
+  <div style="font-style:italic;color:var(--ink-muted);font-size:16px;margin-bottom:4px">sirf wahi boloon ga jo nibha sakoon</div>
+  <div class="promise-card">
+    <div class="promise-line" id="pr0"><span class="check">✦</span>Pehle sochoon ga, phir boloon ga.</div>
+    <div class="promise-line" id="pr1"><span class="check">✦</span>Apkiii baat ko dil se sunoon ga.</div>
+    <div class="promise-line" id="pr2"><span class="check">✦</span>Apna gussa App pyy kabhi nahi nikaloon ga.</div>
+    <div class="promise-line" id="pr3"><span class="check">✦</span>Appkaa khyal rakhna meri zimmedari hai — aur main nibhaoon ga.</div>
+    <div class="promise-line" id="pr4"><span class="check">✦</span>Appse zyada koi important nahi. Kabhi nahi tha. Kabhi nahi hoga.</div>
+  </div>
+  <button class="btn btn2" onclick="goTo(7);startRain()">Aakhri baat 💙</button>
+</div>
+
+<!-- ══ SC7: FINAL ══ -->
+<div class="scene" id="sc7">
+  <div class="final-heart">💙</div>
+  <div class="final-text">
+    App gussa ho — App haq pe ho.<br>
+    Phir bhi… App meri hainn. Aur main apkaa.<br>
+    Aur yeh koi bhi cheez nahi badal sakti.
+  </div>
+  <div class="final-sig">— Haider 🌙</div>
+  <button class="btn" style="margin-top:28px" onclick="maafKaro()">Maaf kar do? 💙</button>
+  <div id="maafMsg" style="display:none;margin-top:20px;font-family:'Caveat',cursive;font-size:clamp(20px,5vw,30px);color:var(--accent);line-height:1.6"></div>
+</div>
+
+<script>
+/* STARS */
+const sc=document.getElementById('stars');
+for(let i=0;i<140;i++){
+  const s=document.createElement('div');s.className='star';
+  const sz=Math.random()*2.5+0.5;
+  s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}vw;top:${Math.random()*100}vh;--d:${2+Math.random()*5}s;--op:${0.3+Math.random()*0.7};animation-delay:${Math.random()*6}s`;
+  sc.appendChild(s);
+}
+
+/* DATE */
+document.getElementById('letterDate').textContent=
+  new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+
+/* MUSIC */
+const audio=document.getElementById('bgMusic');
+let muted=false;
+
+function toggleMusic(){
+  if(audio.paused){audio.play().catch(()=>{});document.getElementById('playBtn').textContent='⏸';}
+  else{audio.pause();document.getElementById('playBtn').textContent='▶';}
+}
+function toggleMute(){
+  muted=!muted;audio.muted=muted;
+  document.querySelector('.vol-btn').textContent=muted?'🔇':'🔊';
+}
+function seekMusic(e){
+  const rect=e.currentTarget.getBoundingClientRect();
+  const pct=(e.clientX-rect.left)/rect.width;
+  if(audio.duration)audio.currentTime=pct*audio.duration;
+}
+audio.addEventListener('timeupdate',()=>{
+  if(audio.duration){
+    document.getElementById('progressBar').style.width=(audio.currentTime/audio.duration*100)+'%';
+  }
+});
+function showMusicBar(){
+  document.getElementById('musicBar').classList.add('show');
+  audio.play().then(()=>{document.getElementById('playBtn').textContent='⏸';}).catch(()=>{});
+}
+
+/* LOCK */
+function checkLock(){
+  const v=document.getElementById('passIn').value.trim().toLowerCase();
+  const err=document.getElementById('lockErr');
+  if(v.startsWith('gurriya')||v.startsWith('guriya')||v==='haider'){
+    showMusicBar();goTo(1);
+  } else {
+    err.style.opacity='1';
+    document.getElementById('passIn').style.animation='shake 0.4s';
+    setTimeout(()=>document.getElementById('passIn').style.animation='',400);
+  }
+}
+document.getElementById('passIn').addEventListener('keydown',e=>{if(e.key==='Enter')checkLock();});
+
+/* SCENE */
+function goTo(n){
+  document.querySelectorAll('.scene').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sc'+n).classList.add('active');
+  createRipple();
+}
+function createRipple(){
+  const r=document.createElement('div');r.className='ripple';const sz=80;
+  r.style.cssText=`width:${sz}px;height:${sz}px;left:${window.innerWidth/2-sz/2}px;top:${window.innerHeight/2-sz/2}px`;
+  document.body.appendChild(r);setTimeout(()=>r.remove(),1200);
+}
+
+/* LETTER */
+const letterContent=`Jannnahhhh,
+
+Maine bahut baar socha kya boloon…
+aur har baar alfaaz kam pad gaye.
+
+App jaantyy ho main kitnaaa pyaar karta hoon apsyyy —
+par pyaar karna aur sahi tarah pyaar karna,
+yeh do alag cheezein hain.
+
+Main sahi tarah nahi kar pa raha tha.
+Aur apkoo takleef di — jaante hue bhi.
+
+App Merii duniyaa hynn — aur maine apni duniya ko takleef di.
+Yarr me messs up kardetaa honn harr cheezz pata nahi kyunnn 
+mujhyy kuch  nahii chahiyee apsyy kuchh bhii nahii 
+picturess dossri picturess vc kuchh nahii chahiyee —
+ bas apkoo khush dekhnaa chahtaa hoon.
+
+ App khush hogi toh meri duniya khush hogi.
+ App khush nahi hogi toh meri duniya bhi udaas rahegi.
+ App khilkhilaaogyy toh meri duniya bhi khil jaayegi.
+
+ Yeh sab bolna zaroori tha.
+Kyunke appp maafi ki haqdar nahi hynn —
+Appp sachhayy pyaar ki haqdarrr hyn. 💙
+
+Apkaa,
+Haider`;
+
+function startLetter(){
+  const el=document.getElementById('letterText');el.innerHTML='';let i=0;
+  const cursor=document.createElement('span');cursor.className='cursor-blink';
+  function type(){
+    if(i<letterContent.length){
+      const ch=letterContent[i];
+      if(ch==='\n')el.appendChild(document.createElement('br'));
+      else el.appendChild(document.createTextNode(ch));
+      i++;el.appendChild(cursor);
+      setTimeout(type,ch==='\n'?100:38);
+    } else {
+      cursor.remove();
+      const btn=document.getElementById('letterBtn');
+      btn.style.opacity='1';btn.style.pointerEvents='auto';
+    }
+  }
+  type();
+}
+
+/* REASONS */
+function showReasons(){
+  ['r0','r1','r2','r3'].forEach((id,i)=>{
+    setTimeout(()=>document.getElementById(id).classList.add('visible'),200+i*280);
+  });
+}
+
+/* PHOTOS */
+function handleImgErr(img, emoji){
+  img.style.display='none';
+  const ph=document.createElement('div');
+  ph.className='photo-placeholder';ph.textContent=emoji;
+  img.parentElement.insertBefore(ph,img);
+}
+function showPhotos(){
+  ['p0','p1','p2','p3'].forEach((id,i)=>{
+    setTimeout(()=>document.getElementById(id).classList.add('visible'),150+i*200);
+  });
+}
+function openLightbox(src,caption){
+  const img=document.getElementById('lbImg');
+  img.src=src;
+  document.getElementById('lbCaption').textContent=caption;
+  document.getElementById('lightbox').classList.add('show');
+}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('show');}
+document.getElementById('lightbox').addEventListener('click',e=>{
+  if(e.target===document.getElementById('lightbox'))closeLightbox();
+});
+
+/* TIMELINE */
+function showTimeline(){
+  ['tl0','tl1','tl2','tl3'].forEach((id,i)=>{
+    setTimeout(()=>document.getElementById(id).classList.add('visible'),200+i*300);
+  });
+}
+
+/* PROMISES */
+function showPromises(){
+  ['pr0','pr1','pr2','pr3','pr4'].forEach((id,i)=>{
+    setTimeout(()=>document.getElementById(id).classList.add('visible'),200+i*250);
+  });
+}
+
+/* RAIN */
+function startRain(){
+  let count=0;
+  const symbols=['💙','·','˚','✦','°','*'];
+  const iv=setInterval(()=>{
+    const d=document.createElement('div');d.className='rain-drop';
+    d.innerText=symbols[Math.floor(Math.random()*symbols.length)];
+    d.style.left=Math.random()*100+'vw';
+    d.style.animationDuration=(3+Math.random()*4)+'s';
+    d.style.fontSize=(12+Math.random()*14)+'px';
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(),7000);
+    if(++count>100)clearInterval(iv);
+  },100);
+}
+
+/* MAAF KARO */
+const maafResponses=[
+  "Shukriya Jannnahhhh…\nAppp meri duniya hynnn 💙",
+  "Main wada karta hoon —\nabb aur nahi 🌙",
+  "Apkiii maafi meri\nzindagi ka sabse bada tohfa hai 💙",
+  "Ab main aur behtar banoonga —\nApkyyy liye ✨"
+];
+let maafClicked=false;
+function maafKaro(){
+  if(maafClicked)return;maafClicked=true;
+  const msg=document.getElementById('maafMsg');
+  msg.style.display='block';
+  msg.innerText=maafResponses[Math.floor(Math.random()*maafResponses.length)];
+  explode();
+}
+function explode(){
+  const emojis=['💙','✨','🌙','💫','🌸','⭐'];
+  for(let i=0;i<55;i++){
+    const e=document.createElement('div');
+    const angle=Math.random()*Math.PI*2;const r=150+Math.random()*180;
+    e.style.cssText=`position:fixed;top:50%;left:50%;font-size:${14+Math.random()*14}px;pointer-events:none;z-index:9999;animation:explodeOut 1.5s ease-out forwards;--x:${Math.cos(angle)*r}px;--y:${Math.sin(angle)*r}px`;
+    e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+    document.body.appendChild(e);setTimeout(()=>e.remove(),1600);
+  }
+}
+
+/* WHISPERS */
+const whispers=["Main Apsyy  Bohottt Pyaar karta hoon 💙","Appp meri duniya hynn 🌙","Main yahan hoon hamesha 🌸","Tum sab se zyada important ho ✨","Maafi de deinnn… please 💙"];
+function showWhisper(){
+  const w=document.getElementById('whisper');
+  w.innerText=whispers[Math.floor(Math.random()*whispers.length)];
+  w.style.opacity='1';
+  setTimeout(()=>{w.style.opacity='0';},3500);
+  setTimeout(showWhisper,18000+Math.random()*12000);
+}
+setTimeout(showWhisper,20000);
+</script>
+</body>
+</html>
